@@ -1,0 +1,6 @@
+framework module Pods_CheckedActionSheet {
+  umbrella header "Pods-CheckedActionSheet-umbrella.h"
+
+  export *
+  module * { export * }
+}
