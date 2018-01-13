@@ -10,8 +10,6 @@ import UIKit
 import FontAwesome_swift
 
 class ViewController: UIViewController {
-
-    let transitioning = ActionSheetTransitioning()
     
     var selection: CheckedItemModel?
     
