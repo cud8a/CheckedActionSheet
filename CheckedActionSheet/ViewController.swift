@@ -15,36 +15,29 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var actionButton: UIButton!
     
+    var items: [CheckedItemModel] = {
+        var items: [CheckedItemModel] = []
+        items.append(CheckedItemModel(faCode: "fa-paypal", text: "Paypal"))
+        items.append(CheckedItemModel(faCode: "fa-credit-card", text: "Credit Card"))
+        items.append(CheckedItemModel(faCode: "fa-google-wallet", text: "Google Wallet"))
+        items.append(CheckedItemModel(faCode: "fa-amazon", text: "Amazon Pay"))
+        items.append(CheckedItemModel(faCode: "fa-apple", text: "Apple Pay"))
+        return items
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         actionButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 4)
         actionButton.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0)
+        
+        selection = items[Int(arc4random_uniform(UInt32(items.count)))]
+        actionButton.setImage(UIImage.fontAwesomeIcon(code: selection!.faCode, textColor: .blue, size: CGSize(width: 32, height: 32)), for: .normal)
     }
     
     @IBAction func btnClicked(_ sender: Any) {
-
-        var items: [CheckedItemModel] = []
-        var item = CheckedItemModel(faCode: "fa-paypal", text: "Paypal")
-        item.preselected = selection?.text == item.text
-        items.append(item)
+        guard let selectionIndex = items.index(where: {$0.text == selection?.text}) else {return}
         
-        item = CheckedItemModel(faCode: "fa-credit-card", text: "Credit Card")
-        item.preselected = selection?.text == item.text
-        items.append(item)
-        
-        item = CheckedItemModel(faCode: "fa-google-wallet", text: "Google Wallet")
-        item.preselected = selection?.text == item.text
-        items.append(item)
-        
-        item = CheckedItemModel(faCode: "fa-amazon", text: "Amazon Pay")
-        item.preselected = selection?.text == item.text
-        items.append(item)
-        
-        item = CheckedItemModel(faCode: "fa-apple", text: "Apple Pay")
-        item.preselected = selection?.text == item.text
-        items.append(item)
-        
-        let viewController = CheckedActionSheetViewController(items: items)
+        let viewController = CheckedActionSheetViewController(items: items, selected: selectionIndex)
         viewController.delegate = self
         
         present(viewController, animated: true, completion: nil)

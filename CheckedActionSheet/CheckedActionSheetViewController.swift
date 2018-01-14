@@ -26,8 +26,9 @@ class CheckedActionSheetViewController: UIViewController {
     
     var selected = 0
     
-    init(items: [CheckedItemModel]) {
+    init(items: [CheckedItemModel], selected: Int) {
         self.items = items
+        self.selected = selected
         super.init(nibName: "CheckedActionSheetViewController", bundle: nil)
         transitioningDelegate = self
         modalPresentationStyle = .overFullScreen
@@ -44,8 +45,6 @@ class CheckedActionSheetViewController: UIViewController {
         tableView.layer.cornerRadius = 14
 
         tableView.register(UINib(nibName: "CheckedTableViewCell", bundle: nil), forCellReuseIdentifier: "checkedCell")
-        
-        selected = items?.index {$0.preselected} ?? 0
     }
     
     @IBAction func cancelClicked(_ sender: Any) {

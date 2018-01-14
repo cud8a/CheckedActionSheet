@@ -13,7 +13,6 @@ struct CheckedItemModel {
     var faCode: String
     var faIcon: String?
     var text: String
-    var preselected = false
     
     init(faCode: String, text: String) {
         self.faCode = faCode
